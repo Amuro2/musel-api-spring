@@ -13,16 +13,19 @@ public class SongDto {
 
     private byte[] fileData;
 
+    private boolean isFileMissing;
+
     public SongDto() {
     }
 
-    public SongDto(Integer id, String title, Double loopStart, Double loopEnd, Double fileDuration, byte[] fileData) {
+    public SongDto(Integer id, String title, Double loopStart, Double loopEnd, Double fileDuration, byte[] fileData, boolean isFileMissing) {
         this.id = id;
         this.title = title;
         this.loopStart = loopStart;
         this.loopEnd = loopEnd;
         this.fileDuration = fileDuration;
         this.fileData = fileData;
+        this.isFileMissing = isFileMissing;
     }
 
     public Integer getId() {
@@ -71,5 +74,13 @@ public class SongDto {
 
     public void setFileData(byte[] fileData) {
         this.fileData = fileData;
+    }
+
+    public boolean getIsFileMissing() {
+        return isFileMissing;
+    }
+
+    public void setIsFileMissing(boolean isFileMissing) {
+        this.isFileMissing = isFileMissing;
     }
 }

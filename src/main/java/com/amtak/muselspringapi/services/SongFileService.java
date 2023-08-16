@@ -91,4 +91,16 @@ public class SongFileService {
             throw new RuntimeException("Could not read file: " + filename, e);
         }
     }
+
+    public void delete(int id) {
+        String filename = String.valueOf(id);
+
+        try {
+            Path file = rootLocation.resolve(filename);
+
+            Files.deleteIfExists(file);
+        } catch(IOException e) {
+            throw new RuntimeException("Could not delete file: " + filename, e);
+        }
+    }
 }

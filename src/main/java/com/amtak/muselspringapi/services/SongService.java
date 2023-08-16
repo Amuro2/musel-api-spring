@@ -15,17 +15,19 @@ public class SongService {
     @Autowired
     private SongRepository songRepository;
 
-//    @Autowired
-//    private SongFileService songFileService;
+    @Autowired
+    private SongFileService songFileService;
 
     public SongDto songToDto(Song song) {
         byte[] fileData = null;
+        boolean isFileMissing = false;
 
-//        try {
+        try {
 //            fileData = songFileService.loadAsByteArray(song.getId());
-//        } catch(Exception e) {
-//
-//        }
+            songFileService.loadAsResource(song.getId());
+        } catch(Exception e) {
+            isFileMissing = true;
+        }
 
         return new SongDto(
                 song.getId(),
@@ -33,7 +35,8 @@ public class SongService {
                 song.fetchLoopStart(),
                 song.fetchLoopEnd(),
                 song.fetchFileDuration(),
-                fileData
+                fileData,
+                isFileMissing
         );
     }
 
@@ -53,6 +56,8 @@ public class SongService {
 
     public SongDto deleteSongById(int id) {
         SongDto songDto = getSongById(id);
+
+        songFileService.delete(id);
 
         songRepository.deleteById(id);
 
